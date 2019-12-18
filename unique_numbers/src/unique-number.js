@@ -1,6 +1,7 @@
 import React from 'react';
-import './App.css';
-class App extends React.Component {
+import './unique-number.css';
+
+export default class UniqueNumber extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -62,6 +63,7 @@ class App extends React.Component {
         return acc;
 
     }
+
     handleSubmit = (e) => {
         const { inputValue } = this.state;
         const numbers = inputValue.split(',').reduce(this.getNumbers, []);
@@ -73,5 +75,3 @@ class App extends React.Component {
 
     onlyUnique = (value, index, self) => self.indexOf(value) === index;
 }
-
-export default App;
