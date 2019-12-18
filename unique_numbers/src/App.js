@@ -4,7 +4,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            inputValue: ''
+            inputValue: '',
+            error: false,
         }
         this.existingArray = [1, 2, 3, 4, 5];
     }
@@ -19,12 +20,28 @@ class App extends React.Component {
                 <button onClick={this.handleSubmit}>
                     Submit
                 </button>
+                {this.state.error && <div className="error"> Invalid Input</div>}
             </div>
         );
     }
 
     handleChange = (e) => {
-        this.setState({ inputValue: e.target.value })
+        const inputValue = e.target.value;
+        const values = inputValue.split(",");
+        let i = 0;
+        for (i = 0; i < values.length; i++) {
+            const val = values[i];
+            if (!(/^[0-9]+(-[0-9]+){0,1}$/g.test(val))) {
+                break;
+            }
+        };
+        if (i === values.length) {
+            this.setState({ error: false });
+        }
+        else {
+            this.setState({ error: true });
+        }
+        this.setState({ inputValue })
     }
 
     getNumbers = (acc, num) => {
