@@ -24,18 +24,18 @@ export default class UniqueNumber extends React.Component {
                     Submit
                 </button>
                 {this.state.error ? <div className="error"> Invalid Input</div>
-                : (<React.Fragment>
-                    <div>
-                    { (this.state.duplicatesArr.length > 0 &&
-                     <div>{this.state.duplicatesArr.toString()} are duplicates and will be skipped.</div>)
-                    }
-                    </div>
-                    <div>
-                    {
-                   (this.state.uniques.length > 0 && <div> Unique numbers are {this.state.uniques.toString()} </div>)
-                   }
-                   </div>
-                   </React.Fragment>)
+                    : (<React.Fragment>
+                        <div>
+                            {(this.state.duplicatesArr.length > 0 &&
+                                <div>{this.state.duplicatesArr.toString()} are duplicates and will be skipped.</div>)
+                            }
+                        </div>
+                        <div>
+                            {
+                                (this.state.uniques.length > 0 && <div> Unique numbers are {this.state.uniques.toString()} </div>)
+                            }
+                        </div>
+                    </React.Fragment>)
                 }
             </div>
         );
@@ -85,10 +85,7 @@ export default class UniqueNumber extends React.Component {
         const uniqueNumbers = numbers.filter(this.onlyUnique);
         const duplicates = this.existingArray.filter(val => uniqueNumbers.includes(val));
         const uniques = this.existingArray.filter(val => !uniqueNumbers.includes(val));
-        const uniqueNumersCount = this.existingArray.length - duplicates.length;
-        this.setState({ uniqueNumersCount, uniques, duplicatesArr: duplicates });
-        console.log('duplicates from existing are:', duplicates);
-        console.log('unique array count is:', this.existingArray.length - duplicates.length);
+        this.setState({ uniques, duplicatesArr: duplicates });
     }
 
     onlyUnique = (value, index, self) => self.indexOf(value) === index;
