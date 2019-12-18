@@ -6,6 +6,8 @@ export default class UniqueNumber extends React.Component {
         super(props);
         this.state = {
             inputValue: '',
+            duplicatesArr: [],
+            uniques: [],
             error: false,
         }
         this.existingArray = [1, 2, 3, 4, 5];
@@ -21,7 +23,20 @@ export default class UniqueNumber extends React.Component {
                 <button onClick={this.handleSubmit}>
                     Submit
                 </button>
-                {this.state.error && <div className="error"> Invalid Input</div>}
+                {this.state.error ? <div className="error"> Invalid Input</div>
+                : (<React.Fragment>
+                    <div>
+                    { (this.state.duplicatesArr.length > 0 &&
+                     <div>{this.state.duplicatesArr.toString()} are duplicates and will be skipped.</div>)
+                    }
+                    </div>
+                    <div>
+                    {
+                   (this.state.uniques.length > 0 && <div> Unique numbers are {this.state.uniques.toString()} </div>)
+                   }
+                   </div>
+                   </React.Fragment>)
+                }
             </div>
         );
     }
@@ -69,6 +84,9 @@ export default class UniqueNumber extends React.Component {
         const numbers = inputValue.split(',').reduce(this.getNumbers, []);
         const uniqueNumbers = numbers.filter(this.onlyUnique);
         const duplicates = this.existingArray.filter(val => uniqueNumbers.includes(val));
+        const uniques = this.existingArray.filter(val => !uniqueNumbers.includes(val));
+        const uniqueNumersCount = this.existingArray.length - duplicates.length;
+        this.setState({ uniqueNumersCount, uniques, duplicatesArr: duplicates });
         console.log('duplicates from existing are:', duplicates);
         console.log('unique array count is:', this.existingArray.length - duplicates.length);
     }
