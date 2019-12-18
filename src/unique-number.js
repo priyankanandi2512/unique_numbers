@@ -16,26 +16,28 @@ export default class UniqueNumber extends React.Component {
     render() {
         return (
             <div className="App">
-                <input type="text"
-                    onChange={this.handleChange}
-                    value={this.state.inputValue}
-                />
-                <button onClick={this.handleSubmit}>
-                    Submit
+                <div className="inp">
+                    <input type="text"
+                        onChange={this.handleChange}
+                        value={this.state.inputValue}
+                    />
+                    <button className="submit-btn" onClick={this.handleSubmit}>
+                        Submit
                 </button>
-                {this.state.error ? <div className="error"> Invalid Input</div>
-                    : (<React.Fragment>
-                        <div>
+                </div>
+                {this.state.error ? <div className="error">Please Enter Valid Input!</div>
+                    : (<div>
+                        <div className="result">
                             {(this.state.duplicatesArr.length > 0 &&
                                 <div>{this.state.duplicatesArr.toString()} are duplicates and will be skipped.</div>)
                             }
                         </div>
-                        <div>
+                        <div className="result">
                             {
                                 (this.state.uniques.length > 0 && <div> Unique numbers are {this.state.uniques.toString()} </div>)
                             }
                         </div>
-                    </React.Fragment>)
+                    </div>)
                 }
             </div>
         );
